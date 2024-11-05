@@ -1,4 +1,4 @@
-module github.com/zeabur/zeabur-caddy-extension
+module github.com/zeabur/caddy-extension
 
 go 1.23.2
 

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	zeaburcaddyextension "github.com/zeabur/zeabur-caddy-extension"
+	zeaburcaddyextension "github.com/zeabur/caddy-extension"
 )
 
 func TestParseRedirects(t *testing.T) {

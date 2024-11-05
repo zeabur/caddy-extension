@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	zeaburcaddyextension "github.com/zeabur/zeabur-caddy-extension"
+	zeaburcaddyextension "github.com/zeabur/caddy-extension"
 )
 
 // TestParseConfig tests the ParseConfig function
