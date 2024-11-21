@@ -8,9 +8,15 @@ WORKDIR /opt/caddy-extensions
 RUN xcaddy build \
     --with github.com/zeabur/caddy-extension=.
 
-FROM caddy:2
+FROM scratch
 
 WORKDIR /usr/share/caddy
 
 COPY --from=builder /opt/caddy-extensions/caddy /usr/bin/caddy
 COPY --link Caddyfile /etc/caddy/Caddyfile
+
+EXPOSE 8080
+EXPOSE 2019
+
+ENTRYPOINT [ "caddy" ]
+CMD [ "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
