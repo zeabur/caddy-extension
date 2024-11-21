@@ -1,6 +1,8 @@
 module github.com/zeabur/caddy-extension
 
-go 1.22
+go 1.22.7
+
+toolchain go1.23.3
 
 require github.com/caddyserver/caddy/v2 v2.8.4
 
