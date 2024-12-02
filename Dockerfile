@@ -8,7 +8,7 @@ WORKDIR /opt/caddy-extensions
 RUN xcaddy build \
     --with github.com/zeabur/caddy-extension=.
 
-FROM scratch
+FROM busybox
 
 WORKDIR /usr/share/caddy
 
