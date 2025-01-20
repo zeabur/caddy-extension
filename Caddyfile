@@ -1,6 +1,11 @@
 :8080 {
 	root * /usr/share/caddy
 
+	@blocked {
+		path /.git/* /node_modules/* /vendor/* /.venv/*
+	}
+	respond @blocked 401
+
 	file_server
 
 	try_files {path} {path}.html {path}/index.html index.html
