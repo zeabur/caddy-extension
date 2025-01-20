@@ -1,7 +1,9 @@
 package e2etest
 
 import (
+	"io"
 	"net/http"
+	"strings"
 	"testing"
 )
 
@@ -55,5 +57,28 @@ func TestUnsafePath(t *testing.T) {
 
 	if response.StatusCode != http.StatusNotFound {
 		t.Fatalf("Expected status code %d, but got %d", http.StatusNotFound, response.StatusCode)
+	}
+}
+
+// note: this test also covers SPA mode
+
+func TestMpaNotFound(t *testing.T) {
+	t.Parallel()
+
+	response, err := http.Get("http://localhost:8080/invalid_path")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer response.Body.Close()
+
+	// WIP: if there is 404.html, it should return 404
+
+	body, err := io.ReadAll(response.Body)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if strings.Contains(string(body), "404 page not found") {
+		t.Fatalf("Expected body to be %s, but got %s", "404 page not found", string(body))
 	}
 }

@@ -8,7 +8,7 @@
 
 	file_server
 
-	try_files {path} {path}.html {path}/index.html index.html
+	try_files {path} {path}.html {path}/index.html 404.html index.html
 
 	zeaburextension
 
