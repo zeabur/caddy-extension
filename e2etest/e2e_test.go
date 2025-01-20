@@ -44,3 +44,16 @@ func TestHeader(t *testing.T) {
 		t.Fatalf("Expected X-Caddy-Test-Passed to be %s, but got %s", "true", contentType)
 	}
 }
+
+func TestUnsafePath(t *testing.T) {
+	t.Parallel()
+
+	response, err := http.Get("http://localhost:8080/vendor/unsafe_path")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if response.StatusCode != http.StatusNotFound {
+		t.Fatalf("Expected status code %d, but got %d", http.StatusNotFound, response.StatusCode)
+	}
+}
