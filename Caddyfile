@@ -1,10 +1,10 @@
 :8080 {
 	root * /usr/share/caddy
 
-	@blocked {
+	@unsafePath {
 		path /.git/* /node_modules/* /vendor/* /.venv/*
 	}
-	respond @blocked 401
+	respond @unsafePath 404
 
 	file_server
 
