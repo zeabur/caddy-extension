@@ -78,7 +78,7 @@ func TestMpaNotFound(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if strings.Contains(string(body), "404 page not found") {
-		t.Fatalf("Expected body to be %s, but got %s", "404 page not found", string(body))
+	if !strings.Contains(string(body), "404 page not found") {
+		t.Fatalf("Expected body to contain %s, but got %s", "404 page not found", string(body))
 	}
 }
