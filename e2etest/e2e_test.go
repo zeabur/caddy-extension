@@ -82,3 +82,26 @@ func TestMpaNotFound(t *testing.T) {
 		t.Fatalf("Expected body to contain %s, but got %s", "404 page not found", string(body))
 	}
 }
+
+func TestRedirectToExternalUrl(t *testing.T) {
+	t.Parallel()
+
+	client := &http.Client{
+		CheckRedirect: func(req *http.Request, via []*http.Request) error {
+			return http.ErrUseLastResponse
+		},
+	}
+
+	response, err := client.Get("http://localhost:8080/google")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if response.StatusCode != http.StatusFound {
+		t.Fatalf("Expected status code %d, but got %d", http.StatusFound, response.StatusCode)
+	}
+
+	if response.Header.Get("Location") != "https://google.com" {
+		t.Fatalf("Expected redirect to https://google.com, but got %s", response.Header.Get("Location"))
+	}
+}

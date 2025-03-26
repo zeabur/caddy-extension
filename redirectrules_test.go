@@ -16,6 +16,7 @@ func TestParseRedirects(t *testing.T) {
 # This is a comment
 /old-path   /new-path   302  Country=UK Language=en
 /invalid    path        302
+/http https://www.google.com 302
 `
 
 	expectedResults := []zeaburcaddyextension.RedirectRule{
@@ -23,6 +24,7 @@ func TestParseRedirects(t *testing.T) {
 		{SourcePath: "/home", TargetPath: "/index", StatusCode: 301, Conditions: ""},
 		{SourcePath: "/about", TargetPath: "/about-us", StatusCode: 302, Conditions: "Country=US"},
 		{SourcePath: "/old-path", TargetPath: "/new-path", StatusCode: 302, Conditions: "Country=UK Language=en"},
+		{SourcePath: "/http", TargetPath: "https://www.google.com", StatusCode: 302, Conditions: ""},
 	}
 
 	rules, err := zeaburcaddyextension.ParseRedirects(content)

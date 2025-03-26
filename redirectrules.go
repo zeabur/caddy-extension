@@ -45,7 +45,7 @@ func ParseRedirects(content string) ([]RedirectRule, error) {
 			continue
 		}
 
-		if !strings.HasPrefix(parts[1], "/") {
+		if !strings.HasPrefix(parts[1], "/") && !strings.HasPrefix(parts[1], "http://") && !strings.HasPrefix(parts[1], "https://") {
 			slog.Warn("Skipping invalid target path in redirect rule", "line", line)
 			continue
 		}
