@@ -5,8 +5,9 @@ FROM caddy:2-builder AS builder
 COPY --link . /opt/caddy-extensions
 WORKDIR /opt/caddy-extensions
 
-RUN xcaddy build \
-    --with github.com/zeabur/caddy-extension=.
+RUN --mount=type=cache,target=/go/pkg/mod \
+    xcaddy build \
+        --with github.com/zeabur/caddy-extension=.
 
 FROM busybox
 
