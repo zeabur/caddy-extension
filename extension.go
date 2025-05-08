@@ -27,7 +27,7 @@ type ZeaburExtension struct {
 
 // Provision implements caddy.Provisioner.
 func (z *ZeaburExtension) Provision(ctx caddy.Context) error {
-	fsys := ctx.Filesystems().Default()
+	fsys := ctx.FileSystems().Default()
 
 	if content, err := fs.ReadFile(fsys, "_headers"); err == nil {
 		slog.Info("found _headers file")
