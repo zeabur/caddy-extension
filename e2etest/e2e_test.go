@@ -8,7 +8,7 @@ import (
 )
 
 func TestRedirects(t *testing.T) {
-	t.Parallel()
+	_, endpoint := TestCaddyContainer(t)
 
 	client := &http.Client{
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
@@ -16,7 +16,7 @@ func TestRedirects(t *testing.T) {
 		},
 	}
 
-	response, err := client.Get("http://localhost:8080")
+	response, err := client.Get(endpoint)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -31,9 +31,9 @@ func TestRedirects(t *testing.T) {
 }
 
 func TestHeader(t *testing.T) {
-	t.Parallel()
+	_, endpoint := TestCaddyContainer(t)
 
-	response, err := http.Get("http://localhost:8080/test.html")
+	response, err := http.Get(endpoint + "/test.html")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -48,9 +48,9 @@ func TestHeader(t *testing.T) {
 }
 
 func TestUnsafePath(t *testing.T) {
-	t.Parallel()
+	_, endpoint := TestCaddyContainer(t)
 
-	response, err := http.Get("http://localhost:8080/vendor/unsafe_path")
+	response, err := http.Get(endpoint + "/vendor/unsafe_path")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -63,9 +63,9 @@ func TestUnsafePath(t *testing.T) {
 // note: this test also covers SPA mode
 
 func TestMpaNotFound(t *testing.T) {
-	t.Parallel()
+	_, endpoint := TestCaddyContainer(t)
 
-	response, err := http.Get("http://localhost:8080/invalid_path")
+	response, err := http.Get(endpoint + "/invalid_path")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -84,15 +84,15 @@ func TestMpaNotFound(t *testing.T) {
 }
 
 func TestRedirectToExternalUrl(t *testing.T) {
-	t.Parallel()
-
 	client := &http.Client{
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
 			return http.ErrUseLastResponse
 		},
 	}
 
-	response, err := client.Get("http://localhost:8080/google")
+	_, endpoint := TestCaddyContainer(t)
+
+	response, err := client.Get(endpoint + "/google")
 	if err != nil {
 		t.Fatal(err)
 	}

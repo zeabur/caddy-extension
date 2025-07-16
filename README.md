@@ -9,15 +9,14 @@ It supports these Zeabur extensions:
 
 ```bash
 docker build -t zeabur/caddy-static .
-docker run -p 8080:8080 -v $(pwd)/examples:/usr/share/caddy -it zeabur/caddy-static
+docker run -p 8080:8080 -v $(pwd)/examples/caddy:/usr/share/caddy -it zeabur/caddy-static
 ```
 
 ## Test
 
-You should start the `zeabur/caddy-static` container first.
+You should build the `zeabur/caddy-static` image first.
 
 ```bash
-docker run -p 8080:8080 -v $(pwd)/examples:/usr/share/caddy -it zeabur/caddy-static
 go test -v ./e2etest
 ```
 
