@@ -2,5 +2,4 @@
 
 set -eux
 
-docker build -t zeabur/caddy-static --platform linux/amd64 .
-docker push zeabur/caddy-static
+docker build -t zeabur/caddy-static --push --platform linux/amd64 .
